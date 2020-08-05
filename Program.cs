@@ -7,38 +7,25 @@ namespace PrintDuplicate
     {
         static void Main(string[] args)
         {
-            var duplicates = new List<int>();
             var numbers = new List<int>() { 4, 7, 8, 4, 6, 1, 3, 3, 2, 8, 4 };
-            
-            foreach (int num in numbers)
+            var dict = new Dictionary<int, int>();
+
+            foreach (var value in numbers)
             {
-                if (DuplicateCount(numbers, num) > 1)
-                {
-                    if (DuplicateCount(duplicates, num) == 0)
-                    {
-                        duplicates.Add(num);
-                    }
-                }
+                if (dict.ContainsKey(value))
+                    dict[value]++;
+                else
+                    dict[value] = 1;
             }
 
-            //printing out the duplicates only
-            foreach (int num in duplicates)
+            //Print out duplicates only
+            foreach (var pair in dict)
             {
-                Console.WriteLine(num);
+                if (pair.Value >= 2)
+                    Console.WriteLine(pair.Key);
             }
-            Console.ReadLine();
+                
+            Console.ReadKey();
         }
-        static int DuplicateCount(List<int> NumbList, int Num)
-        {
-            int count = 0;
-            foreach (int n in NumbList)
-            {
-                if (n == Num)
-                {
-                    count++;
-                }
-            }
-            return count;
-        }
-    }
+     }
 }
